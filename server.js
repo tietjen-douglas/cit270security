@@ -1,13 +1,25 @@
 const express = require('express'); // Import the library
+const https = require('https'); // Use HTTPS
+const fs = require('fs'); // Access File System
 const bodyParser = require('body-parser'); // Middleware
 const md5 = require('md5'); // Hashing Function
 const {createClient} = require("redis"); // Redis Database
 
 // Connect to Redis, forcing to Ipv4 localhost due to bug on default.
-const redisClient = createClient({socket:{port:6379, host:'127.0.0.1'}});
+const redisClient = createClient({socket:{port:9001, host:'127.0.0.1'}});
 
 const app = express(); // Use the library
 const port = 3000;
+
+https.createServer({
+        key: fs.readFileSync('server.key'),
+        cert: fs.readFileSync('server.cert'),
+    }, app).listen(port, async () => {
+        console.log(`Listening on Port ${port}`);
+        // Connect to the redis server
+        await redisClient.connect();
+    }
+);
 
 app.use(bodyParser.json()); // Use the middleware (call it before anything else happens on the request)
 
@@ -15,13 +27,6 @@ var validate = require('./validate'); // Input Validation Code
 
 // Verification that we are connected.
 redisClient.on('connect', () => console.log('Redis Connected.'));
-
-// Listen
-app.listen(port, async () => {
-     console.log(`Listening on Port ${port}`);
-     // Connect to the redis server
-     await redisClient.connect();
-});
 
 // Respond
 app.get('/', async (req, res) => {
