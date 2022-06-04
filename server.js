@@ -9,11 +9,12 @@ const {createClient} = require("redis"); // Redis Database
 const redisClient = createClient({socket:{port:9001, host:'127.0.0.1'}});
 
 const app = express(); // Use the library
-const port = 3000;
+const port = 443;
 
 https.createServer({
         key: fs.readFileSync('server.key'),
         cert: fs.readFileSync('server.cert'),
+        passphrase: 'P@ssw0rd',
     }, app).listen(port, async () => {
         console.log(`Listening on Port ${port}`);
         // Connect to the redis server
