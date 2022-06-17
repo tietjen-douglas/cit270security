@@ -6,7 +6,8 @@ const md5 = require('md5'); // Hashing Function
 const {createClient} = require("redis"); // Redis Database
 
 // Connect to Redis, forcing to Ipv4 localhost due to bug on default.
-const redisClient = createClient({socket:{port:9001, host:'127.0.0.1'}});
+//const redisClient = createClient({socket:{port:9001, host:'127.0.0.1'}});
+const redisClient = createClient({url: 'redis://default:secure_password@10.128.0.2:6379'});
 
 const app = express(); // Use the library
 const port = 443;
