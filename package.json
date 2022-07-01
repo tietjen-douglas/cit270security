@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "docker build . -t cit270",
+    "run": "docker run -p 443:443 cit270"
   },
   "author": "Douglas Tietjen",
   "license": "ISC",

@@ -7,7 +7,7 @@ const {createClient} = require("redis"); // Redis Database
 
 // Connect to Redis, forcing to Ipv4 localhost due to bug on default.
 //const redisClient = createClient({socket:{port:9001, host:'127.0.0.1'}});
-const redisClient = createClient({url: 'redis://default:secure_password@10.128.0.2:6379'});
+const redisClient = createClient({url: 'redis://default:secure_password@douglas-redis.cit270.com:6379'});
 
 const app = express(); // Use the library
 const port = 443;
@@ -18,6 +18,7 @@ https.createServer({
         passphrase: 'P@ssw0rd',
     }, app).listen(port, async () => {
         console.log(`Listening on Port ${port}`);
+        console.log(`Environment: ${process.env.NODE_ENV}`)
         // Connect to the redis server
         await redisClient.connect();
     }
@@ -114,3 +115,8 @@ const signup = async(request, response)=> {
 };
 
 app.post('/signup', signup);
+
+
+app.use(function (req, res, next) {
+    res.status(404).send("<h1>No page was found!<h1>");
+});
