@@ -115,8 +115,3 @@ const signup = async(request, response)=> {
 };
 
 app.post('/signup', signup);
-
-
-app.use(function (req, res, next) {
-    res.status(404).send("<h1>No page was found!<h1>");
-});
