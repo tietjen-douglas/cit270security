@@ -57,7 +57,7 @@ spec:
             periodSeconds: 3
 
  # This is the start of a new document for the load Balancer
- ---
+---
 apiVersion: v1
 kind: Service
 metadata:
