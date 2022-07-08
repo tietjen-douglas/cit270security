@@ -45,7 +45,7 @@ spec:
               port: 443
             initialDelaySeconds: 3
             periodSeconds: 3
-          ReadinessProbe:
+          readinessProbe:
             httpGet:
             # This is the url to call to see if my API has started
               path: /
