@@ -12,8 +12,8 @@ spec:
       app: perkley-cit270
   template:
     metadata:
-    labels:
-      app: perkley-cit270
+      labels:
+        app: perkley-cit270
     spec:
       containers:
         - name: perkley-cit270
