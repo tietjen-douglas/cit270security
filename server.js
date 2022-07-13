@@ -10,19 +10,24 @@ const {createClient} = require("redis"); // Redis Database
 const redisClient = createClient({url: 'redis://default:secure_password@douglas-redis.cit270.com:6379'});
 
 const app = express(); // Use the library
-const port = 443;
+const port = 3000;
 
-https.createServer({
-        key: fs.readFileSync('server.key'),
-        cert: fs.readFileSync('server.cert'),
-        passphrase: 'P@ssw0rd',
-    }, app).listen(port, async () => {
-        console.log(`Listening on Port ${port}`);
-        console.log(`Environment: ${process.env.NODE_ENV}`)
-        // Connect to the redis server
-        await redisClient.connect();
-    }
-);
+// https.createServer({
+//         key: fs.readFileSync('server.key'),
+//         cert: fs.readFileSync('server.cert'),
+//         passphrase: 'P@ssw0rd',
+//     }, app).listen(port, async () => {
+//         console.log(`Listening on Port ${port}`);
+//         // Connect to the redis server
+//         await redisClient.connect();
+//     }
+// );
+
+app.listen(port, async()=>{
+    console.log(`Listening on Port ${port}`);
+    // Connect to the redis server
+    await redisClient.connect();
+})
 
 app.use(bodyParser.json()); // Use the middleware (call it before anything else happens on the request)
 
