@@ -42,8 +42,8 @@ spec:
               # The Url to call to see if my API is running
               path: /
               # This is the port to use to see if my API is running
-              port: 443
-              scheme: HTTPS
+              port: 3000
+              scheme: HTTP
             initialDelaySeconds: 3
             periodSeconds: 3
           readinessProbe:
@@ -51,8 +51,8 @@ spec:
             # This is the url to call to see if my API has started
               path: /
               # This is the port to use to see if my API has started
-              port: 443
-              scheme: HTTPS
+              port: 3000
+              scheme: HTTP
             initialDelaySeconds: 3
             periodSeconds: 3
 
