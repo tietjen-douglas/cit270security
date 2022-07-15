@@ -69,3 +69,30 @@ spec:
   ports:
   - port: 80
     targetPort: 3000
+
+# Managed Certificate
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: managed-cert
+spec:
+  domains:
+    - douglas-loadbalancer.cit270.com
+
+# Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: managed-cert-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: douglas-loadbalance.cit270.com
+    networking.gke.io/managed-certificates: managed-cert
+    kubernetes.io/ingress.class: "gce"
+spec:
+  defaultBackend:
+    service:
+      name: mc-service
+      port:
+        number: 3000
